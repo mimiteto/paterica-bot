@@ -1,0 +1,14 @@
+---
+os_packages:
+  - python3
+  - python3-pip
+  - git
+
+git_repo: https://github.com/mimiteto/paterica-bot.git
+
+dest: /opt/paterica-bot
+
+git_repo_version: master
+
+conf_file_path: "/etc/paterica/config.yaml"
+conf_file_src_path: "/etc/paterica/config.yaml"

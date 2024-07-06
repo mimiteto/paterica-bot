@@ -1,0 +1,36 @@
+---
+- name: Pull repo
+  ansible.builtin.git:
+    accept_hostkey: true
+    dest: "{{ dest }}"
+    depth: 1
+    repo: "{{ git_repo }}"
+    version: "{{ git_repo_version }}"
+  notify:
+    - Restart paterica service
+
+- name: Add systemd unit
+  ansible.builtin.template:
+    src: paterica.service.j2
+    dest: /etc/systemd/system/paterica.service
+  notify:
+    - Reload systemd svcs
+    - Restart paterica service
+
+- name: Build venv
+  command:
+    cmd: python3 -m venv .venv
+    chdir: "{{ dest }}"
+    creates: "{{ dest }}/.venv/bin/activate"
+
+- name: Deploy pip packages
+  ansible.builtin.pip:
+    chdir: "{{ dest }}"
+    requirements: "{{ dest }}/requirements.txt"
+    state: present
+    virtualenv: "{{ dest }}/.venv"
+
+- name: Add conf dir if missing
+  file:
+    path: "{{ conf_file_path | dirname }}"
+    state: directory

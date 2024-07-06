@@ -1,0 +1,7 @@
+---
+- hosts: "{{ target | default('localhost')}}"
+  become: true
+  vars:
+    conf_file_src_path: "{{ conf_file_src_path | default('/etc/paterica/config.yaml') }}"
+  roles:
+    - role: paterica_bots

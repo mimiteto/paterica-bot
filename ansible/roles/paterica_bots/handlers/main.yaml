@@ -1,0 +1,10 @@
+---
+- name: Reload systemd svcs
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+- name: Restart paterica service
+  ansible.builtin.systemd_service:
+    enabled: true
+    name: paterica
+    state: restarted

@@ -1,0 +1,13 @@
+---
+- name: Include OS dependencies
+  include_tasks: os-dependencies.yaml
+
+- name: Setup env
+  include_tasks: setup.yaml
+
+- name: Update conf
+  ansible.builtin.copy:
+    src: "{{ conf_file_src_path }}"
+    dest: "{{ conf_file_path }}"
+  notify:
+    - Restart paterica service

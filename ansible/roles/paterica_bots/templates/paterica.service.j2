@@ -1,0 +1,14 @@
+[Unit]
+Description=Paterica bot
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/bin/bash -c 'source .venv/bin/activate && python3 -m init {{conf_file_path}}'
+WorkingDirectory={{dest}}
+
+[Install]
+WantedBy=multi-user.target

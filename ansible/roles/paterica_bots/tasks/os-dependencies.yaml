@@ -1,0 +1,7 @@
+---
+- name: Install OS dependencies
+  ansible.builtin.apt: 
+    autoremove: true
+    cache_valid_time: 1209600  # 2 weeks
+    name: "{{ os_packages }}"
+    state: latest
